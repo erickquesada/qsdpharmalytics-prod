@@ -86,17 +86,17 @@ class MarketShareData(Base):
     geographic_region = Column(String(50), nullable=True, index=True)
     
     # Market Data
-    total_market_size = Column(Decimal(15, 2), nullable=False)
-    our_revenue = Column(Decimal(15, 2), nullable=False)
-    market_share_percentage = Column(Decimal(8, 4), nullable=False)
+    total_market_size = Column(Numeric(15, 2), nullable=False)
+    our_revenue = Column(Numeric(15, 2), nullable=False)
+    market_share_percentage = Column(Numeric(8, 4), nullable=False)
     
     # Competitive Analysis
     competitor_count = Column(Integer, default=0)
     market_rank = Column(Integer, nullable=True)
     
     # Trends
-    previous_period_share = Column(Decimal(8, 4), nullable=True)
-    share_change = Column(Decimal(8, 4), nullable=True)
+    previous_period_share = Column(Numeric(8, 4), nullable=True)
+    share_change = Column(Numeric(8, 4), nullable=True)
     
     # Additional Data
     analysis_notes = Column(Text, nullable=True)
