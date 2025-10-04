@@ -61,7 +61,7 @@ class SalesMetric(Base):
     quantity_growth = Column(Numeric(8, 4), default=0.00)  # Percentage vs previous period
     
     # Additional Data
-    metadata = Column(JSON, nullable=True)
+    additional_data = Column(JSON, nullable=True)
     
     # System Fields
     created_at = Column(DateTime(timezone=True), server_default=func.now())
