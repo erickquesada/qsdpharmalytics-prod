@@ -48,7 +48,7 @@ class Pharmacy(Base):
     dea_number = Column(String(20), nullable=True)
     
     # Financial Information
-    credit_limit = Column(Decimal(12, 2), default=0.00)
+    credit_limit = Column(Numeric(12, 2), default=0.00)
     payment_terms = Column(String(50), nullable=True)  # e.g., "Net 30"
     discount_tier = Column(String(20), nullable=True)  # e.g., "Premium", "Standard"
     
