@@ -6,8 +6,8 @@ from fastapi import HTTPException, status
 from backend.core.config import settings
 
 
-# Password hashing
-pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
+# Password hashing - using pbkdf2 to avoid bcrypt compatibility issues
+pwd_context = CryptContext(schemes=["pbkdf2_sha256"], deprecated="auto")
 
 
 def create_access_token(
