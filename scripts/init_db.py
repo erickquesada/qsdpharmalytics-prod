@@ -76,7 +76,7 @@ def init_db():
                 is_verified=True
             )
             db.add(sales_user)
-            print("💼 Created sales rep user: salesrep / sales123")
+            print("💼 Created sales rep user: salesrep / sales")
         
         # Create product categories
         categories = [
