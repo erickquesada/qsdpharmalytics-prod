@@ -38,7 +38,7 @@ def init_db():
                 username="admin",
                 first_name="System",
                 last_name="Administrator",
-                hashed_password=get_password_hash("admin123"),
+                hashed_password=get_password_hash("admin"),
                 role=UserRole.ADMIN,
                 is_active=True,
                 is_verified=True
