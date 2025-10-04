@@ -193,7 +193,7 @@ def init_db():
         print("\n📋 Sample Users Created:")
         print("   Admin:    admin / admin")
         print("   Analyst:  analyst / analyst") 
-        print("   Sales:    salesrep / sales123")
+        print("   Sales:    salesrep / sales")
         print("\n🚀 Ready to start QSDPharmalitics API!")
         
     except Exception as e:
