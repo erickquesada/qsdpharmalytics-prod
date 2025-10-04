@@ -45,20 +45,20 @@ class SalesMetric(Base):
     region = Column(String(50), nullable=True, index=True)
     
     # Metric Values
-    total_revenue = Column(Decimal(15, 2), default=0.00)
+    total_revenue = Column(Numeric(15, 2), default=0.00)
     total_quantity = Column(Integer, default=0)
     total_orders = Column(Integer, default=0)
     unique_customers = Column(Integer, default=0)
     
     # Calculated Metrics
-    average_order_value = Column(Decimal(10, 2), default=0.00)
-    average_selling_price = Column(Decimal(10, 2), default=0.00)
-    gross_margin = Column(Decimal(10, 4), default=0.00)  # Percentage
-    market_share = Column(Decimal(8, 4), default=0.00)    # Percentage
+    average_order_value = Column(Numeric(10, 2), default=0.00)
+    average_selling_price = Column(Numeric(10, 2), default=0.00)
+    gross_margin = Column(Numeric(10, 4), default=0.00)  # Percentage
+    market_share = Column(Numeric(8, 4), default=0.00)    # Percentage
     
     # Growth Metrics
-    revenue_growth = Column(Decimal(8, 4), default=0.00)   # Percentage vs previous period
-    quantity_growth = Column(Decimal(8, 4), default=0.00)  # Percentage vs previous period
+    revenue_growth = Column(Numeric(8, 4), default=0.00)   # Percentage vs previous period
+    quantity_growth = Column(Numeric(8, 4), default=0.00)  # Percentage vs previous period
     
     # Additional Data
     metadata = Column(JSON, nullable=True)
