@@ -44,7 +44,7 @@ def init_db():
                 is_verified=True
             )
             db.add(admin_user)
-            print("👤 Created admin user: admin / admin123")
+            print("👤 Created admin user: admin / admin")
         
         # Create analyst user
         analyst_user = db.query(User).filter(User.username == "analyst").first()
