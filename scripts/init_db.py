@@ -192,7 +192,7 @@ def init_db():
         print("✅ Database initialization completed!")
         print("\n📋 Sample Users Created:")
         print("   Admin:    admin / admin")
-        print("   Analyst:  analyst / analyst123") 
+        print("   Analyst:  analyst / analyst") 
         print("   Sales:    salesrep / sales123")
         print("\n🚀 Ready to start QSDPharmalitics API!")
         
