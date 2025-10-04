@@ -13,7 +13,7 @@ class Settings(BaseSettings):
     SECRET_KEY: str = secrets.token_urlsafe(32)
     
     # Database
-    DATABASE_URL: str = "postgresql://pharmalitics_user:pharmalitics_pass@localhost:5432/pharmalitics"
+    DATABASE_URL: str = "sqlite:///./pharmalitics.db"
     POSTGRES_SERVER: str = "localhost"
     POSTGRES_USER: str = "pharmalitics_user"
     POSTGRES_PASSWORD: str = "pharmalitics_pass"
