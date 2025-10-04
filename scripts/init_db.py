@@ -60,7 +60,7 @@ def init_db():
                 is_verified=True
             )
             db.add(analyst_user)
-            print("📊 Created analyst user: analyst / analyst123")
+            print("📊 Created analyst user: analyst / analyst")
         
         # Create sales rep user
         sales_user = db.query(User).filter(User.username == "salesrep").first()
