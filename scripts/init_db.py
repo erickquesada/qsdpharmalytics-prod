@@ -9,7 +9,7 @@ import os
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..'))
 
 from sqlalchemy.orm import Session
-from backend.database.base import engine, SessionLocal
+from backend.database.base import engine, SessionLocal, Base
 from backend.models import *
 from backend.core.security import get_password_hash
 from backend.models.user import User, UserRole
