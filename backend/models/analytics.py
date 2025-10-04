@@ -131,7 +131,7 @@ class TrendAnalysis(Base):
     
     # Trend Results
     trend_direction = Column(String(20), nullable=True)  # increasing, decreasing, stable, volatile
-    trend_strength = Column(Decimal(5, 4), nullable=True)  # correlation coefficient
+    trend_strength = Column(Numeric(5, 4), nullable=True)  # correlation coefficient
     seasonal_pattern = Column(Boolean, default=False)
     
     # Statistical Data
