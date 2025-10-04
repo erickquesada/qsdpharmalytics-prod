@@ -54,7 +54,7 @@ def init_db():
                 username="analyst",
                 first_name="John",
                 last_name="Analyst",
-                hashed_password=get_password_hash("analyst123"),
+                hashed_password=get_password_hash("analyst"),
                 role=UserRole.ANALYST,
                 is_active=True,
                 is_verified=True
