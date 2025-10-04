@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String, Text, Decimal, Boolean, DateTime, Date, JSON, Enum
+from sqlalchemy import Column, Integer, String, Text, Boolean, DateTime, Date, JSON, Enum, Numeric
 from sqlalchemy.sql import func
 import enum
 from backend.database.base import Base
