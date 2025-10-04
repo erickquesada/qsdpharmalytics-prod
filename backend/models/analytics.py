@@ -182,7 +182,7 @@ class ReportGeneration(Base):
     
     # Report Metadata
     total_records = Column(Integer, default=0)
-    generation_duration = Column(Decimal(8, 3), nullable=True)  # seconds
+    generation_duration = Column(Numeric(8, 3), nullable=True)  # seconds
     
     # Status
     status = Column(String(20), default="completed")  # pending, completed, failed
