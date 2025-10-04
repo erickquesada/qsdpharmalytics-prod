@@ -58,8 +58,8 @@ class Pharmacy(Base):
     population_density = Column(String(20), nullable=True)  # Urban, Suburban, Rural
     
     # Performance Metrics
-    annual_volume = Column(Decimal(12, 2), default=0.00)
-    average_order_value = Column(Decimal(10, 2), default=0.00)
+    annual_volume = Column(Numeric(12, 2), default=0.00)
+    average_order_value = Column(Numeric(10, 2), default=0.00)
     last_order_date = Column(DateTime(timezone=True), nullable=True)
     
     # Status & Metadata
