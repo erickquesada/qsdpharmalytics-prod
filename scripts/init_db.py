@@ -70,7 +70,7 @@ def init_db():
                 username="salesrep",
                 first_name="Jane",
                 last_name="Sales",
-                hashed_password=get_password_hash("sales123"),
+                hashed_password=get_password_hash("sales"),
                 role=UserRole.SALES_REP,
                 is_active=True,
                 is_verified=True
