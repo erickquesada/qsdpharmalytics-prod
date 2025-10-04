@@ -145,7 +145,7 @@ class TrendAnalysis(Base):
     
     # Analysis Metadata
     methodology = Column(String(100), nullable=True)
-    data_quality_score = Column(Decimal(3, 2), nullable=True)
+    data_quality_score = Column(Numeric(3, 2), nullable=True)
     analysis_notes = Column(Text, nullable=True)
     
     # System Fields
