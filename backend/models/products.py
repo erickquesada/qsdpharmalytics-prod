@@ -41,9 +41,9 @@ class Product(Base):
     package_size = Column(String(50), nullable=True)
     
     # Pricing
-    unit_price = Column(Decimal(10, 2), nullable=True)
-    suggested_retail_price = Column(Decimal(10, 2), nullable=True)
-    cost_price = Column(Decimal(10, 2), nullable=True)
+    unit_price = Column(Numeric(10, 2), nullable=True)
+    suggested_retail_price = Column(Numeric(10, 2), nullable=True)
+    cost_price = Column(Numeric(10, 2), nullable=True)
     
     # Classification
     category_id = Column(Integer, ForeignKey("product_categories.id"), nullable=False)
