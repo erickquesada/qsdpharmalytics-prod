@@ -35,11 +35,11 @@ class Sale(Base):
     
     # Sale Details
     quantity = Column(Integer, nullable=False)
-    unit_price = Column(Decimal(10, 2), nullable=False)
-    total_price = Column(Decimal(10, 2), nullable=False)
-    discount_amount = Column(Decimal(10, 2), default=0.00)
-    tax_amount = Column(Decimal(10, 2), default=0.00)
-    final_amount = Column(Decimal(10, 2), nullable=False)
+    unit_price = Column(Numeric(10, 2), nullable=False)
+    total_price = Column(Numeric(10, 2), nullable=False)
+    discount_amount = Column(Numeric(10, 2), default=0.00)
+    tax_amount = Column(Numeric(10, 2), default=0.00)
+    final_amount = Column(Numeric(10, 2), nullable=False)
     
     # Transaction Information
     payment_method = Column(Enum(PaymentMethod), default=PaymentMethod.NET_TERMS)
