@@ -166,7 +166,6 @@ metadata:
 test_plan:
   current_focus:
     - "Docker PostgreSQL Production Setup"
-    - "Backend API Testing"
   stuck_tasks: []
   test_all: false
   test_priority: "high_first"
