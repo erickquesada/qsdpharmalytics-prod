@@ -1,17 +1,17 @@
 from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.orm import Session
 from datetime import timedelta
-from backend.database.base import get_db
-from backend.schemas.user import UserLogin, Token, UserCreate, UserResponse
-from backend.models.user import User
-from backend.core.security import (
+from database.base import get_db
+from schemas.user import UserLogin, Token, UserCreate, UserResponse
+from models.user import User
+from core.security import (
     verify_password, 
     get_password_hash, 
     create_access_token,
     create_refresh_token,
     verify_token
 )
-from backend.core.config import settings
+from core.config import settings
 
 router = APIRouter()
 
@@ -182,7 +182,7 @@ async def create_admin_user(db: Session = Depends(get_db)):
             detail="Admin user already exists"
         )
     
-    from backend.models.user import UserRole
+    from models.user import UserRole
     
     admin_user = User(
         email="admin@pharmalitics.com",

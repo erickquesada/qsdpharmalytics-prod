@@ -6,15 +6,15 @@ import os
 import pandas as pd
 from io import StringIO, BytesIO
 
-from backend.database.base import get_db
-from backend.api.dependencies import get_current_active_user, get_analyst_or_admin_user
-from backend.schemas.reports import ReportRequest, ReportResponse, ReportListResponse, ReportType, ReportFormat
-from backend.models.analytics import ReportGeneration
-from backend.models.sales import Sale
-from backend.models.products import Product
-from backend.models.pharmacies import Pharmacy
-from backend.models.user import User
-from backend.core.config import settings
+from database.base import get_db
+from api.dependencies import get_current_active_user, get_analyst_or_admin_user
+from schemas.reports import ReportRequest, ReportResponse, ReportListResponse, ReportType, ReportFormat
+from models.analytics import ReportGeneration
+from models.sales import Sale
+from models.products import Product
+from models.pharmacies import Pharmacy
+from models.user import User
+from core.config import settings
 
 router = APIRouter()
 
@@ -205,7 +205,7 @@ async def delete_report(
 
 async def _generate_report_file(report_id: int, report_request: ReportRequest, user_id: int):
     """Background task to generate report file"""
-    from backend.database.base import SessionLocal
+    from database.base import SessionLocal
     
     db = SessionLocal()
     
