@@ -320,19 +320,20 @@ async def get_dashboard_summary(
     
     # Monthly trend (last 6 months)
     six_months_ago = end_date - timedelta(days=180)
+    # Use strftime for SQLite compatibility (works with both SQLite and PostgreSQL)
     monthly_sales = db.query(
-        func.date_trunc('month', Sale.sale_date).label('month'),
+        func.strftime('%Y-%m', Sale.sale_date).label('month'),
         func.sum(Sale.final_amount).label('revenue')
     ).filter(
         Sale.is_active == True,
         Sale.sale_date >= six_months_ago
-    ).group_by(func.date_trunc('month', Sale.sale_date))\
+    ).group_by(func.strftime('%Y-%m', Sale.sale_date))\
      .order_by('month')\
      .all()
     
     monthly_trend = [
         {
-            'month': month.month.strftime('%Y-%m'),
+            'month': month.month,
             'revenue': float(month.revenue)
         }
         for month in monthly_sales
