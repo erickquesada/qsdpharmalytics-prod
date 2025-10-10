@@ -40,9 +40,9 @@ class ProductBase(BaseModel):
     active_ingredient: Optional[str] = Field(None, max_length=255)
     dosage: Optional[str] = Field(None, max_length=100)
     package_size: Optional[str] = Field(None, max_length=50)
-    unit_price: Optional[Decimal] = Field(None, gt=0, max_digits=10, decimal_places=2)
-    suggested_retail_price: Optional[Decimal] = Field(None, gt=0, max_digits=10, decimal_places=2)
-    cost_price: Optional[Decimal] = Field(None, gt=0, max_digits=10, decimal_places=2)
+    unit_price: Optional[Decimal] = Field(None, gt=0)
+    suggested_retail_price: Optional[Decimal] = Field(None, gt=0)
+    cost_price: Optional[Decimal] = Field(None, gt=0)
     category_id: int
     therapeutic_class: Optional[str] = Field(None, max_length=100)
     controlled_substance: bool = False
@@ -66,9 +66,9 @@ class ProductUpdate(BaseModel):
     active_ingredient: Optional[str] = Field(None, max_length=255)
     dosage: Optional[str] = Field(None, max_length=100)
     package_size: Optional[str] = Field(None, max_length=50)
-    unit_price: Optional[Decimal] = Field(None, gt=0, max_digits=10, decimal_places=2)
-    suggested_retail_price: Optional[Decimal] = Field(None, gt=0, max_digits=10, decimal_places=2)
-    cost_price: Optional[Decimal] = Field(None, gt=0, max_digits=10, decimal_places=2)
+    unit_price: Optional[Decimal] = Field(None, gt=0)
+    suggested_retail_price: Optional[Decimal] = Field(None, gt=0)
+    cost_price: Optional[Decimal] = Field(None, gt=0)
     category_id: Optional[int] = None
     therapeutic_class: Optional[str] = Field(None, max_length=100)
     controlled_substance: Optional[bool] = None
