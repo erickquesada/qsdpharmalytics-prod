@@ -399,7 +399,7 @@ class QSDPharmaliticsAPITester:
                         "discount_amount": 1.50,
                         "tax_amount": 1.44,
                         "payment_method": "credit_card",
-                        "sale_date": "2024-01-15",
+                        "sale_date": "2024-01-15T10:00:00",
                         "territory": "North",
                         "region": "Northeast"
                     }
