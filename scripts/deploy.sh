@@ -40,8 +40,14 @@ warning() {
 
 # Check if .env file exists
 if [ ! -f .env ]; then
-    error ".env file not found. Please copy .env.example to .env and configure it."
-    exit 1
+    if [ -f .env.prod ]; then
+        log "Using .env.prod file for production deployment"
+        cp .env.prod .env
+    else
+        error ".env file not found. Please copy .env.example to .env and configure it."
+        error "Or use .env.prod for production deployment."
+        exit 1
+    fi
 fi
 
 # Source environment variables
