@@ -70,8 +70,9 @@ class Settings(BaseSettings):
     TIMEZONE: str = "UTC"
     
     class Config:
-        env_file = ".env"
+        env_file = "../.env"
         case_sensitive = True
+        extra = "ignore"  # Ignore extra fields in .env
 
 
 @lru_cache()
