@@ -213,8 +213,8 @@ class QSDPharmaliticsAPITester:
             return
             
         try:
-            response = self.make_request('POST', f"{self.api_v1_url}/auth/refresh", 
-                                      json={"refresh_token": self.refresh_token})
+            # The refresh endpoint expects the token as a query parameter
+            response = self.make_request('POST', f"{self.api_v1_url}/auth/refresh?refresh_token={self.refresh_token}")
             
             if response.status_code == 200:
                 data = response.json()
