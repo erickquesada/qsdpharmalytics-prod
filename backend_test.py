@@ -233,13 +233,13 @@ class QSDPharmaliticsAPITester:
             self.log_result("Token Refresh", False, f"Exception: {str(e)}")
 
     def test_get_current_user(self):
-        """Test GET /api/v1/auth/me - Get current user"""
+        """Test GET /api/v1/users/me - Get current user"""
         if not self.access_token:
             self.log_result("Get Current User", False, "No access token available")
             return
             
         try:
-            response = self.make_request('GET', f"{self.api_v1_url}/auth/me")
+            response = self.make_request('GET', f"{self.api_v1_url}/users/me")
             
             if response.status_code == 200:
                 data = response.json()
