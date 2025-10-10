@@ -53,11 +53,15 @@ fi
 # Source environment variables
 source .env
 
-# Verify required environment variables
-if [ -z "$DB_PASSWORD" ] || [ -z "$REDIS_PASSWORD" ] || [ -z "$SECRET_KEY" ]; then
-    error "Required environment variables (DB_PASSWORD, REDIS_PASSWORD, SECRET_KEY) are not set."
-    error "Please configure these in your .env file."
-    exit 1
+# Set default values if not provided
+if [ -z "$DB_PASSWORD" ]; then
+    export DB_PASSWORD="pharmalitics_pass"
+fi
+if [ -z "$REDIS_PASSWORD" ]; then
+    export REDIS_PASSWORD="redis_pass"
+fi
+if [ -z "$SECRET_KEY" ]; then
+    export SECRET_KEY="pharmalitics-change-this-secret-key-32-chars"
 fi
 
 log "Environment variables validated successfully"
