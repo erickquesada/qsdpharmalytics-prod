@@ -21,9 +21,9 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 # Copy application
 COPY backend/ ./backend/
-COPY shared/ ./shared/
-COPY alembic.ini .
-COPY alembic/ ./alembic/
+COPY requirements.txt .
+COPY .env* ./
+COPY scripts/ ./scripts/
 
 # Create necessary directories
 RUN mkdir -p /app/reports /app/uploads /app/logs
