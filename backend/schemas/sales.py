@@ -37,9 +37,9 @@ class SaleCreate(SaleBase):
 
 class SaleUpdate(BaseModel):
     quantity: Optional[int] = Field(None, gt=0)
-    unit_price: Optional[Decimal] = Field(None, gt=0, max_digits=10, decimal_places=2)
-    discount_amount: Optional[Decimal] = Field(None, ge=0, max_digits=10, decimal_places=2)
-    tax_amount: Optional[Decimal] = Field(None, ge=0, max_digits=10, decimal_places=2)
+    unit_price: Optional[Decimal] = Field(None, gt=0)
+    discount_amount: Optional[Decimal] = Field(None, ge=0)
+    tax_amount: Optional[Decimal] = Field(None, ge=0)
     payment_method: Optional[PaymentMethod] = None
     status: Optional[SaleStatus] = None
     delivery_date: Optional[datetime] = None
