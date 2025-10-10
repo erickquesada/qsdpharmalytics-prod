@@ -60,7 +60,7 @@ class QSDPharmaliticsAPITester:
         self.test_pharmacy_data = {
             "name": "Central Pharmacy",
             "license_number": "PH-2024-001",
-            "address": "123 Main Street",
+            "address_line1": "123 Main Street",
             "city": "New York",
             "state": "NY",
             "zip_code": "10001",
