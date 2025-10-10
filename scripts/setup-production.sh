@@ -1,0 +1,206 @@
+#!/bin/bash
+
+# QSDPharmalitics Production Setup Script
+# Prepares the environment for production deployment
+
+set -e
+
+echo "🔧 Setting up QSDPharmalitics for production deployment..."
+
+# Colors for output
+GREEN='\033[0;32m'
+YELLOW='\033[1;33m'
+RED='\033[0;31m'
+NC='\033[0m'
+
+# Create necessary directories
+echo -e "${GREEN}📁 Creating necessary directories...${NC}"
+mkdir -p ./backups
+mkdir -p ./logs  
+mkdir -p ./reports
+mkdir -p ./uploads
+mkdir -p ./certbot/conf
+mkdir -p ./certbot/www
+mkdir -p ./nginx/ssl
+mkdir -p ./static
+
+# Set proper permissions
+chmod -R 755 ./reports ./uploads ./logs ./static
+chmod -R 755 ./certbot
+chmod +x ./scripts/*.sh
+
+# Copy environment file if needed
+if [ ! -f .env ]; then
+    if [ -f .env.prod ]; then
+        echo -e "${GREEN}📋 Copying production environment file...${NC}"
+        cp .env.prod .env
+    else
+        echo -e "${YELLOW}⚠️  Copying example environment file...${NC}"
+        cp .env.example .env
+        echo -e "${RED}❗ IMPORTANT: Please edit .env file with your production values!${NC}"
+    fi
+fi
+
+# Create nginx production config if it doesn't exist
+if [ ! -f ./nginx/nginx.prod.conf ]; then
+    echo -e "${GREEN}🌐 Creating nginx production configuration...${NC}"
+    mkdir -p ./nginx
+    cat > ./nginx/nginx.prod.conf << 'EOF'
+events {
+    worker_connections 1024;
+}
+
+http {
+    include       /etc/nginx/mime.types;
+    default_type  application/octet-stream;
+
+    # Logging
+    log_format main '$remote_addr - $remote_user [$time_local] "$request" '
+                    '$status $body_bytes_sent "$http_referer" '
+                    '"$http_user_agent" "$http_x_forwarded_for"';
+
+    access_log /var/log/nginx/access.log main;
+    error_log /var/log/nginx/error.log warn;
+
+    # Basic settings
+    sendfile        on;
+    tcp_nopush      on;
+    tcp_nodelay     on;
+    keepalive_timeout 65;
+    types_hash_max_size 2048;
+    client_max_body_size 10M;
+
+    # Gzip compression
+    gzip on;
+    gzip_vary on;
+    gzip_min_length 1024;
+    gzip_proxied any;
+    gzip_comp_level 6;
+    gzip_types
+        text/plain
+        text/css
+        text/xml
+        text/javascript
+        application/json
+        application/javascript
+        application/xml+rss
+        application/atom+xml
+        image/svg+xml;
+
+    # Rate limiting
+    limit_req_zone $binary_remote_addr zone=api:10m rate=10r/s;
+    limit_req_zone $binary_remote_addr zone=login:10m rate=5r/m;
+
+    # Upstream servers
+    upstream backend {
+        server backend:8001;
+        keepalive 32;
+    }
+
+    # HTTP Server (redirect to HTTPS)
+    server {
+        listen 80;
+        server_name pharma.qsdconnect.cloud www.pharma.qsdconnect.cloud;
+        
+        # Let's Encrypt verification
+        location /.well-known/acme-challenge/ {
+            root /var/www/certbot;
+        }
+        
+        # Redirect all HTTP to HTTPS
+        location / {
+            return 301 https://$server_name$request_uri;
+        }
+    }
+
+    # HTTPS Server
+    server {
+        listen 443 ssl http2;
+        server_name pharma.qsdconnect.cloud www.pharma.qsdconnect.cloud;
+
+        # SSL Configuration (will be updated after certificate generation)
+        ssl_certificate /etc/letsencrypt/live/pharma.qsdconnect.cloud/fullchain.pem;
+        ssl_certificate_key /etc/letsencrypt/live/pharma.qsdconnect.cloud/privkey.pem;
+        
+        ssl_protocols TLSv1.2 TLSv1.3;
+        ssl_ciphers ECDHE-RSA-AES256-GCM-SHA512:DHE-RSA-AES256-GCM-SHA512;
+        ssl_prefer_server_ciphers off;
+
+        # Security headers
+        add_header Strict-Transport-Security "max-age=63072000" always;
+        add_header X-Content-Type-Options nosniff;
+        add_header X-Frame-Options DENY;
+        add_header X-XSS-Protection "1; mode=block";
+
+        # API routes (backend)
+        location /api/ {
+            limit_req zone=api burst=20 nodelay;
+            
+            proxy_pass http://backend;
+            proxy_set_header Host $host;
+            proxy_set_header X-Real-IP $remote_addr;
+            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+            proxy_set_header X-Forwarded-Proto $scheme;
+            
+            # CORS headers
+            add_header 'Access-Control-Allow-Origin' '*' always;
+            add_header 'Access-Control-Allow-Methods' 'GET, POST, PUT, DELETE, OPTIONS' always;
+            add_header 'Access-Control-Allow-Headers' 'DNT,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Range,Authorization' always;
+            
+            # Handle preflight requests
+            if ($request_method = 'OPTIONS') {
+                add_header 'Access-Control-Allow-Origin' '*';
+                add_header 'Access-Control-Allow-Methods' 'GET, POST, PUT, DELETE, OPTIONS';
+                add_header 'Access-Control-Allow-Headers' 'DNT,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Range,Authorization';
+                add_header 'Access-Control-Max-Age' 1728000;
+                add_header 'Content-Type' 'text/plain; charset=utf-8';
+                add_header 'Content-Length' 0;
+                return 204;
+            }
+        }
+
+        # Auth endpoints with stricter rate limiting
+        location /api/v1/auth/login {
+            limit_req zone=login burst=5 nodelay;
+            proxy_pass http://backend;
+            proxy_set_header Host $host;
+            proxy_set_header X-Real-IP $remote_addr;
+            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+            proxy_set_header X-Forwarded-Proto $scheme;
+        }
+
+        # Static files
+        location /static/ {
+            alias /var/www/static/;
+            expires 1y;
+            add_header Cache-Control "public, immutable";
+        }
+
+        # Root endpoint
+        location / {
+            return 200 '{"message": "QSDPharmalitics API v2.0", "documentation": "/api/v1/docs", "status": "operational"}';
+            add_header Content-Type application/json;
+        }
+
+        # Health check endpoint
+        location /health {
+            access_log off;
+            return 200 "healthy\n";
+            add_header Content-Type text/plain;
+        }
+    }
+}
+EOF
+fi
+
+echo -e "${GREEN}✅ Production setup completed!${NC}"
+echo ""
+echo -e "${GREEN}📋 Next steps:${NC}"
+echo -e "1. Edit .env file with your production values"
+echo -e "2. Configure your DNS to point pharma.qsdconnect.cloud to this server"
+echo -e "3. Run: ./scripts/deploy.sh"
+echo ""
+echo -e "${GREEN}📁 Directories created:${NC}"
+ls -la | grep "^d.*\(backups\|logs\|reports\|uploads\|certbot\|nginx\|static\)"
+echo ""
+echo -e "${GREEN}🚀 Ready for deployment!${NC}"
