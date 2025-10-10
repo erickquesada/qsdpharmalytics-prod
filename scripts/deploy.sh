@@ -66,9 +66,13 @@ fi
 
 log "Environment variables validated successfully"
 
-# Pull latest changes from git
-log "Pulling latest changes from repository..."
-git pull origin main
+# Pull latest changes from git (if git repo exists)
+if [ -d ".git" ]; then
+    log "Pulling latest changes from repository..."
+    git pull origin main || log "Warning: Could not pull from git repository"
+else
+    log "Not a git repository, skipping git pull"
+fi
 
 # Create backup of current database (if exists)
 log "Creating database backup..."
