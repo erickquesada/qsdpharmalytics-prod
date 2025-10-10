@@ -9,9 +9,9 @@ class SaleBase(BaseModel):
     product_id: int
     pharmacy_id: int
     quantity: int = Field(..., gt=0)
-    unit_price: Decimal = Field(..., gt=0, max_digits=10, decimal_places=2)
-    discount_amount: Optional[Decimal] = Field(0, ge=0, max_digits=10, decimal_places=2)
-    tax_amount: Optional[Decimal] = Field(0, ge=0, max_digits=10, decimal_places=2)
+    unit_price: Decimal = Field(..., gt=0)
+    discount_amount: Optional[Decimal] = Field(0, ge=0)
+    tax_amount: Optional[Decimal] = Field(0, ge=0)
     payment_method: PaymentMethod = PaymentMethod.NET_TERMS
     status: SaleStatus = SaleStatus.PENDING
     sale_date: Optional[datetime] = None
