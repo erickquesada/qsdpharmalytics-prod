@@ -2,6 +2,7 @@ from pydantic_settings import BaseSettings
 from typing import List, Optional
 import secrets
 from functools import lru_cache
+from urllib.parse import quote_plus
 
 
 class Settings(BaseSettings):
@@ -13,12 +14,29 @@ class Settings(BaseSettings):
     SECRET_KEY: str = secrets.token_urlsafe(32)
     
     # Database
-    DATABASE_URL: str = "sqlite:///./pharmalitics.db"
+    DATABASE_URL: Optional[str] = None
     POSTGRES_SERVER: str = "localhost"
     POSTGRES_USER: str = "pharmalitics_user"
     POSTGRES_PASSWORD: str = "pharmalitics_pass"
     POSTGRES_DB: str = "pharmalitics"
     POSTGRES_PORT: int = 5432
+    
+    def get_database_url(self) -> str:
+        """
+        Construct DATABASE_URL from individual PostgreSQL components.
+        This avoids URL encoding issues with special characters in passwords.
+        """
+        if self.DATABASE_URL:
+            return self.DATABASE_URL
+        
+        # If POSTGRES_SERVER is set and not localhost, use PostgreSQL
+        if self.POSTGRES_SERVER and self.POSTGRES_SERVER not in ["localhost", "127.0.0.1"]:
+            # URL-encode the password to handle special characters
+            encoded_password = quote_plus(self.POSTGRES_PASSWORD)
+            return f"postgresql://{self.POSTGRES_USER}:{encoded_password}@{self.POSTGRES_SERVER}:{self.POSTGRES_PORT}/{self.POSTGRES_DB}"
+        
+        # Default to SQLite for local development
+        return "sqlite:///./pharmalitics.db"
     
     # Redis
     REDIS_URL: str = "redis://:redis_pass@localhost:6379"
