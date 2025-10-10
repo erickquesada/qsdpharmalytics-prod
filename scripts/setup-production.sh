@@ -29,16 +29,30 @@ chmod -R 755 ./reports ./uploads ./logs ./static
 chmod -R 755 ./certbot
 chmod +x ./scripts/*.sh
 
-# Copy environment file if needed
+# Create .env file if it doesn't exist
 if [ ! -f .env ]; then
-    if [ -f .env.prod ]; then
-        echo -e "${GREEN}📋 Copying production environment file...${NC}"
-        cp .env.prod .env
-    else
-        echo -e "${YELLOW}⚠️  Copying example environment file...${NC}"
-        cp .env.example .env
-        echo -e "${RED}❗ IMPORTANT: Please edit .env file with your production values!${NC}"
-    fi
+    echo -e "${GREEN}📋 Creating .env file...${NC}"
+    cat > .env << 'EOF'
+APP_NAME=QSDPharmalitics
+APP_VERSION=2.0.0
+ENVIRONMENT=production
+DEBUG=false
+SECRET_KEY=pharmalitics-change-this-secret-key-32-chars
+
+DATABASE_URL=postgresql://pharmalitics_user:pharmalitics_pass@postgres:5432/pharmalitics
+REDIS_URL=redis://:redis_pass@redis:6379
+
+API_V1_STR=/api/v1
+BACKEND_CORS_ORIGINS=["https://pharma.qsdconnect.cloud","https://www.pharma.qsdconnect.cloud"]
+
+DB_PASSWORD=pharmalitics_pass
+REDIS_PASSWORD=redis_pass
+
+ACCESS_TOKEN_EXPIRE_MINUTES=60
+LOG_LEVEL=INFO
+RATE_LIMIT_PER_MINUTE=100
+EOF
+    echo -e "${RED}❗ IMPORTANT: Edit .env file with secure passwords!${NC}"
 fi
 
 # Create nginx production config if it doesn't exist
