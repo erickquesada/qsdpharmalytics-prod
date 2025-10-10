@@ -1,4 +1,4 @@
-version: '3.8'
+# version: '3.8'  # Commented out as it's deprecated
 
 services:
   # PostgreSQL Database
