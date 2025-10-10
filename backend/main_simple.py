@@ -9,7 +9,7 @@ from typing import Optional, List
 import os
 
 # Database
-DATABASE_URL = os.getenv("DATABASE_URL", "postgresql://pharmalitics_user:pharmalitics_pass@postgres:5432/pharmalitics")
+DATABASE_URL = os.getenv("DATABASE_URL", "postgresql://pharmalitics_user:pharmalitics123@postgres:5432/pharmalitics")
 engine = create_engine(DATABASE_URL)
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 Base = declarative_base()
