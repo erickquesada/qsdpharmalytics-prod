@@ -103,6 +103,10 @@ class QSDPharmaliticsAPITester:
             elif self.access_token and 'headers' in kwargs:
                 kwargs['headers']['Authorization'] = f'Bearer {self.access_token}'
             
+            # Debug: Print token info for failed requests
+            if self.access_token and method != 'POST':
+                print(f"DEBUG: Using token {self.access_token[:20]}... for {method} {url}")
+            
             response = self.session.request(method, url, timeout=30, **kwargs)
             return response
         except requests.exceptions.RequestException as e:
