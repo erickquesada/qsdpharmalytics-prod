@@ -338,6 +338,12 @@ class QSDPharmaliticsAPITester:
             return
             
         try:
+            # Get fresh token to ensure it's not expired
+            login_response = self.make_request('POST', f"{self.api_v1_url}/auth/login", 
+                                             json={"username_or_email": "admin", "password": "admin"})
+            if login_response.status_code == 200:
+                self.access_token = login_response.json()["access_token"]
+            
             response = self.make_request('GET', f"{self.api_v1_url}/products")
             
             if response.status_code == 200:
