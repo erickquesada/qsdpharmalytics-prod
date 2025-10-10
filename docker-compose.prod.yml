@@ -26,7 +26,7 @@ services:
   redis:
     image: redis:7-alpine
     container_name: pharmalitics_redis_prod
-    command: redis-server --requirepass ${REDIS_PASSWORD} --appendonly yes
+    command: redis-server --appendonly yes
     volumes:
       - redis_data:/data
     networks:
