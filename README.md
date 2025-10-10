@@ -53,22 +53,23 @@ git clone https://github.com/seu-usuario/QSDPharmalitics-Py.git
 cd QSDPharmalitics-Py
 ```
 
-### **2. Configuração Rápida com Docker**
+### **2. Desenvolvimento Local (Método Simples)**
 ```bash
-# Copiar configurações de ambiente
-cp .env.example .env
-
-# Iniciar todos os serviços
-docker-compose up -d
-
-# Verificar status
-docker-compose ps
+# Instalar e iniciar localmente
+./scripts/start-local.sh
 ```
 
-### **3. Inicializar Banco de Dados**
+### **3. OU Docker (Método Avançado)**
 ```bash
-# Executar dentro do container
-docker-compose exec backend python scripts/init_db.py
+# Preparar ambiente
+./scripts/setup-production.sh
+
+# Configurar .env (obrigatório)
+cp .env.example .env
+nano .env  # Editar senhas
+
+# Iniciar com Docker
+docker-compose up -d
 ```
 
 ✅ **API estará disponível em**: `http://localhost:8001`
