@@ -13,20 +13,25 @@ RUN apt-get update \
         postgresql-client \
         build-essential \
         libpq-dev \
+        curl \
     && rm -rf /var/lib/apt/lists/*
 
-# Install Python dependencies
+# Copy and install Python dependencies
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Copy application
+# Copy application code
 COPY backend/ ./backend/
-COPY requirements.txt .
-COPY .env* ./
 COPY scripts/ ./scripts/
+
+# Copy environment files (if they exist)
+COPY .env* ./ 
 
 # Create necessary directories
 RUN mkdir -p /app/reports /app/uploads /app/logs
+
+# Set permissions
+RUN chmod +x ./scripts/*.py 2>/dev/null || true
 
 # Expose port
 EXPOSE 8001
@@ -36,4 +41,4 @@ HEALTHCHECK --interval=30s --timeout=30s --start-period=5s --retries=5 \
     CMD curl -f http://localhost:8001/api/v1/health || exit 1
 
 # Run application
-CMD ["uvicorn", "backend.main:app", "--host", "0.0.0.0", "--port", "8001", "--reload"]
+CMD ["uvicorn", "backend.main:app", "--host", "0.0.0.0", "--port", "8001"]
