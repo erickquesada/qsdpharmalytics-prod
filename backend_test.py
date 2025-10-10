@@ -380,17 +380,17 @@ class QSDPharmaliticsAPITester:
             self.log_result("Get Pharmacies", False, f"Exception: {str(e)}")
 
     def test_analytics_dashboard(self):
-        """Test GET /api/v1/analytics/dashboard - Dashboard data"""
+        """Test GET /api/v1/analytics/dashboard-summary - Dashboard data"""
         if not self.access_token:
             self.log_result("Analytics Dashboard", False, "No access token available")
             return
             
         try:
-            response = self.make_request('GET', f"{self.api_v1_url}/analytics/dashboard")
+            response = self.make_request('GET', f"{self.api_v1_url}/analytics/dashboard-summary")
             
             if response.status_code == 200:
                 data = response.json()
-                self.log_result("Analytics Dashboard", True, f"Dashboard data retrieved: {len(data)} items" if isinstance(data, (list, dict)) else "Dashboard data retrieved")
+                self.log_result("Analytics Dashboard", True, f"Dashboard data retrieved: {data.get('total_revenue', 'N/A')} revenue")
             else:
                 self.log_result("Analytics Dashboard", False, f"Status: {response.status_code}, Response: {response.text}")
                 
