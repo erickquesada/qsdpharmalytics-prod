@@ -411,6 +411,89 @@ class QSDPharmaliticsAPITester:
         except Exception as e:
             self.log_result("Analytics Dashboard", False, f"Exception: {str(e)}")
 
+    def test_create_sale(self):
+        """Test POST /api/v1/sales - Create sale"""
+        if not self.access_token:
+            self.log_result("Create Sale", False, "No access token available")
+            return
+            
+        try:
+            # First get a product and pharmacy ID
+            products_response = self.make_request('GET', f"{self.api_v1_url}/products")
+            pharmacies_response = self.make_request('GET', f"{self.api_v1_url}/pharmacies")
+            
+            if products_response.status_code == 200 and pharmacies_response.status_code == 200:
+                products = products_response.json()
+                pharmacies = pharmacies_response.json()
+                
+                if products and pharmacies:
+                    sale_data = {
+                        "product_id": products[0]["id"],
+                        "pharmacy_id": pharmacies[0]["id"],
+                        "quantity": 10,
+                        "unit_price": 15.99,
+                        "discount_amount": 1.50,
+                        "tax_amount": 1.44,
+                        "payment_method": "credit_card",
+                        "sale_date": "2024-01-15",
+                        "territory": "North",
+                        "region": "Northeast"
+                    }
+                    
+                    response = self.make_request('POST', f"{self.api_v1_url}/sales", json=sale_data)
+                    
+                    if response.status_code == 201:
+                        data = response.json()
+                        self.log_result("Create Sale", True, f"Sale created: Order #{data.get('order_number')}")
+                    else:
+                        self.log_result("Create Sale", False, f"Status: {response.status_code}, Response: {response.text}")
+                else:
+                    self.log_result("Create Sale", False, "No products or pharmacies available for sale creation")
+            else:
+                self.log_result("Create Sale", False, "Could not retrieve products/pharmacies for sale creation")
+                
+        except Exception as e:
+            self.log_result("Create Sale", False, f"Exception: {str(e)}")
+
+    def test_get_sales(self):
+        """Test GET /api/v1/sales - List sales"""
+        if not self.access_token:
+            self.log_result("Get Sales", False, "No access token available")
+            return
+            
+        try:
+            response = self.make_request('GET', f"{self.api_v1_url}/sales")
+            
+            if response.status_code == 200:
+                data = response.json()
+                if isinstance(data, dict) and "items" in data:
+                    self.log_result("Get Sales", True, f"Retrieved {len(data['items'])} sales, Total: {data.get('total', 0)}")
+                else:
+                    self.log_result("Get Sales", False, f"Unexpected response format: {type(data)}")
+            else:
+                self.log_result("Get Sales", False, f"Status: {response.status_code}, Response: {response.text}")
+                
+        except Exception as e:
+            self.log_result("Get Sales", False, f"Exception: {str(e)}")
+
+    def test_sales_performance_analytics(self):
+        """Test GET /api/v1/analytics/sales-performance - Sales performance analytics"""
+        if not self.access_token:
+            self.log_result("Sales Performance Analytics", False, "No access token available")
+            return
+            
+        try:
+            response = self.make_request('GET', f"{self.api_v1_url}/analytics/sales-performance")
+            
+            if response.status_code == 200:
+                data = response.json()
+                self.log_result("Sales Performance Analytics", True, f"Analytics retrieved: {data.get('period', 'N/A')} period")
+            else:
+                self.log_result("Sales Performance Analytics", False, f"Status: {response.status_code}, Response: {response.text}")
+                
+        except Exception as e:
+            self.log_result("Sales Performance Analytics", False, f"Exception: {str(e)}")
+
     def test_unauthorized_access(self):
         """Test accessing protected endpoints without token"""
         try:
