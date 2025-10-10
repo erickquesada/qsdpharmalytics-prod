@@ -552,8 +552,13 @@ class QSDPharmaliticsAPITester:
         self.test_create_pharmacy()
         self.test_get_pharmacies()
         
+        # Sales operations
+        self.test_create_sale()
+        self.test_get_sales()
+        
         # Analytics
         self.test_analytics_dashboard()
+        self.test_sales_performance_analytics()
         
         # Security tests
         self.test_unauthorized_access()
