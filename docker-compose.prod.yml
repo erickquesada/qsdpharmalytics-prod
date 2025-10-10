@@ -46,7 +46,7 @@ services:
     container_name: pharmalitics_api_prod
     environment:
       - DATABASE_URL=postgresql://pharmalitics_user:${DB_PASSWORD}@postgres:5432/pharmalitics
-      - REDIS_URL=redis://:${REDIS_PASSWORD}@redis:6379
+      - REDIS_URL=redis://redis:6379
       - SECRET_KEY=${SECRET_KEY}
       - ENVIRONMENT=production
       - DEBUG=false
