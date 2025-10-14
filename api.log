@@ -1,0 +1,51 @@
+INFO:     Started server process [1686]
+INFO:     Waiting for application startup.
+2025-10-10 16:43:36,796 - backend.main - INFO - 🚀 Starting QSDPharmalitics API v2.0...
+2025-10-10 16:43:36,799 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2025-10-10 16:43:36,799 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2025-10-10 16:43:36,799 INFO sqlalchemy.engine.Engine PRAGMA main.table_info("users")
+2025-10-10 16:43:36,799 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("users")
+2025-10-10 16:43:36,799 INFO sqlalchemy.engine.Engine [raw sql] ()
+2025-10-10 16:43:36,799 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2025-10-10 16:43:36,800 INFO sqlalchemy.engine.Engine PRAGMA main.table_info("sales")
+2025-10-10 16:43:36,800 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("sales")
+2025-10-10 16:43:36,800 INFO sqlalchemy.engine.Engine [raw sql] ()
+2025-10-10 16:43:36,800 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2025-10-10 16:43:36,800 INFO sqlalchemy.engine.Engine PRAGMA main.table_info("product_categories")
+2025-10-10 16:43:36,800 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("product_categories")
+2025-10-10 16:43:36,800 INFO sqlalchemy.engine.Engine [raw sql] ()
+2025-10-10 16:43:36,800 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2025-10-10 16:43:36,800 INFO sqlalchemy.engine.Engine PRAGMA main.table_info("products")
+2025-10-10 16:43:36,800 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("products")
+2025-10-10 16:43:36,800 INFO sqlalchemy.engine.Engine [raw sql] ()
+2025-10-10 16:43:36,800 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2025-10-10 16:43:36,800 INFO sqlalchemy.engine.Engine PRAGMA main.table_info("pharmacies")
+2025-10-10 16:43:36,800 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("pharmacies")
+2025-10-10 16:43:36,800 INFO sqlalchemy.engine.Engine [raw sql] ()
+2025-10-10 16:43:36,800 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2025-10-10 16:43:36,800 INFO sqlalchemy.engine.Engine PRAGMA main.table_info("sales_metrics")
+2025-10-10 16:43:36,800 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("sales_metrics")
+2025-10-10 16:43:36,800 INFO sqlalchemy.engine.Engine [raw sql] ()
+2025-10-10 16:43:36,800 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2025-10-10 16:43:36,800 INFO sqlalchemy.engine.Engine PRAGMA main.table_info("market_share_data")
+2025-10-10 16:43:36,800 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("market_share_data")
+2025-10-10 16:43:36,800 INFO sqlalchemy.engine.Engine [raw sql] ()
+2025-10-10 16:43:36,800 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2025-10-10 16:43:36,801 INFO sqlalchemy.engine.Engine PRAGMA main.table_info("trend_analysis")
+2025-10-10 16:43:36,801 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("trend_analysis")
+2025-10-10 16:43:36,801 INFO sqlalchemy.engine.Engine [raw sql] ()
+2025-10-10 16:43:36,801 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2025-10-10 16:43:36,801 INFO sqlalchemy.engine.Engine PRAGMA main.table_info("report_generations")
+2025-10-10 16:43:36,801 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("report_generations")
+2025-10-10 16:43:36,801 INFO sqlalchemy.engine.Engine [raw sql] ()
+2025-10-10 16:43:36,801 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2025-10-10 16:43:36,801 INFO sqlalchemy.engine.Engine COMMIT
+2025-10-10 16:43:36,801 - sqlalchemy.engine.Engine - INFO - COMMIT
+2025-10-10 16:43:36,801 - backend.main - INFO - 📊 Database tables created successfully
+2025-10-10 16:43:36,801 - backend.main - INFO - ✅ QSDPharmalitics API is ready!
+2025-10-10 16:43:36,801 - backend.main - INFO - 📚 Documentation available at: http://localhost:8001/api/v1/docs
+INFO:     Application startup complete.
+ERROR:    [Errno 98] error while attempting to bind on address ('0.0.0.0', 8001): address already in use
+INFO:     Waiting for application shutdown.
+2025-10-10 16:43:36,802 - backend.main - INFO - 👋 Shutting down QSDPharmalitics API...
+INFO:     Application shutdown complete.
