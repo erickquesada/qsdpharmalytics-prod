@@ -71,27 +71,31 @@ const AppRoutes = () => {
         }
       />
       <Route
-        path="/products"
+        path="/medicamentos"
         element={
           <ProtectedRoute>
             <Layout>
-              <div className="p-8">
-                <h1 className="text-3xl font-bold">Products</h1>
-                <p className="text-gray-600 mt-2">Product management coming soon...</p>
-              </div>
+              <Medicamentos />
             </Layout>
           </ProtectedRoute>
         }
       />
       <Route
-        path="/sales"
+        path="/nova-venda"
         element={
           <ProtectedRoute>
             <Layout>
-              <div className="p-8">
-                <h1 className="text-3xl font-bold">Sales</h1>
-                <p className="text-gray-600 mt-2">Sales management coming soon...</p>
-              </div>
+              <NovaVenda />
+            </Layout>
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/historico-vendas"
+        element={
+          <ProtectedRoute>
+            <Layout>
+              <HistoricoVendas />
             </Layout>
           </ProtectedRoute>
         }
