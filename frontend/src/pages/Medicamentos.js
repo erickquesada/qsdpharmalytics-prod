@@ -28,8 +28,8 @@ const Medicamentos = () => {
   const fetchMedicamentos = async () => {
     try {
       const response = await axios.get(`${API_URL}/api/v1/products`);
-      setMedicamentos(response.data);
-      setFilteredMedicamentos(response.data);
+      setMedicamentos(response.data || []);
+      setFilteredMedicamentos(response.data || []);
     } catch (error) {
       console.error('Erro ao carregar medicamentos:', error);
     } finally {
@@ -44,7 +44,8 @@ const Medicamentos = () => {
     }
     const filtered = medicamentos.filter(med =>
       med.name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      med.description?.toLowerCase().includes(searchTerm.toLowerCase())
+      med.description?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      med.manufacturer?.toLowerCase().includes(searchTerm.toLowerCase())
     );
     setFilteredMedicamentos(filtered);
   };
@@ -197,6 +198,9 @@ const Medicamentos = () => {
                         <span>Fabricante: {medicamento.manufacturer || 'N/A'}</span>
                         <span>Categoria: {medicamento.category || 'N/A'}</span>
                         <span>Estoque: {medicamento.stock_quantity || 0}</span>
+                        <span className="font-semibold text-green-600">
+                          R$ {(medicamento.unit_price || 0).toFixed(2)}
+                        </span>
                       </div>
                     </div>
                     <div className="flex gap-2">
@@ -225,7 +229,7 @@ const Medicamentos = () => {
       </div>
 
       {/* Edit Dialog */}
-      {showEditDialog && (
+      {showEditDialog && editingMedicamento && (
         <EditMedicamentoDialog
           medicamento={editingMedicamento}
           onOpenChange={setShowEditDialog}
