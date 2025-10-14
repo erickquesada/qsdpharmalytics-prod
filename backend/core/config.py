@@ -1,8 +1,10 @@
 from pydantic_settings import BaseSettings
-from typing import List, Optional
+from typing import List, Optional, Union
 import secrets
 from functools import lru_cache
 from urllib.parse import quote_plus
+import json
+from pydantic import field_validator
 
 
 class Settings(BaseSettings):
@@ -46,11 +48,27 @@ class Settings(BaseSettings):
     
     # API
     API_V1_STR: str = "/api/v1"
-    BACKEND_CORS_ORIGINS: List[str] = [
+    BACKEND_CORS_ORIGINS: Union[List[str], str] = [
         "http://localhost:3000",
         "https://localhost:3000",
         "http://localhost:8080"
     ]
+    
+    @field_validator('BACKEND_CORS_ORIGINS', mode='before')
+    @classmethod
+    def parse_cors_origins(cls, v):
+        """Parse CORS origins from string or list"""
+        if isinstance(v, str):
+            # Try to parse as JSON
+            if v.strip():
+                try:
+                    return json.loads(v)
+                except json.JSONDecodeError:
+                    # If not JSON, split by comma
+                    return [origin.strip() for origin in v.split(',') if origin.strip()]
+            # If empty string, return default
+            return ["http://localhost:3000"]
+        return v
     
     # Security
     ACCESS_TOKEN_EXPIRE_MINUTES: int = 30
