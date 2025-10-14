@@ -49,8 +49,8 @@ services:
   # Frontend
   frontend:
     build:
-      context: ./frontend
-      dockerfile: ../Dockerfile.frontend
+      context: .
+      dockerfile: Dockerfile.frontend.production
       args:
         - REACT_APP_BACKEND_URL=https://qsdpharma.qsdconnect.cloud
     container_name: qsdpharma_frontend
