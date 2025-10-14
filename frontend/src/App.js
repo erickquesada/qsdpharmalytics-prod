@@ -8,6 +8,10 @@ import Dashboard from './pages/DashboardComplete';
 import Medicamentos from './pages/Medicamentos';
 import NovaVenda from './pages/NovaVenda';
 import HistoricoVendas from './pages/HistoricoVendas';
+import Medicos from './pages/Medicos';
+import Farmacias from './pages/Farmacias';
+import Setores from './pages/Setores';
+import DefinirCotas from './pages/DefinirCotas';
 import './App.css';
 
 // Protected Route Component
