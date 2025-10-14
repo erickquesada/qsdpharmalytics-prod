@@ -34,12 +34,18 @@ const Layout = ({ children }) => {
 
   const navigation = [
     { name: 'Dashboard', href: '/dashboard', icon: LayoutDashboard },
-    { name: 'Products', href: '/products', icon: Package },
-    { name: 'Sales', href: '/sales', icon: ShoppingCart },
-    { name: 'Pharmacies', href: '/pharmacies', icon: Store },
-    { name: 'Analytics', href: '/analytics', icon: TrendingUp },
-    { name: 'Reports', href: '/reports', icon: FileText },
-    ...(user?.role === 'admin' ? [{ name: 'Users', href: '/users', icon: Users }] : [])
+    { name: 'Histórico de Vendas', href: '/historico-vendas', icon: ShoppingCart },
+    { name: 'Nova Venda', href: '/nova-venda', icon: Plus },
+    { name: 'Definir Cotas', href: '/definir-cotas', icon: Target },
+    { name: 'Medicamentos', href: '/medicamentos', icon: Package },
+    { name: 'Médicos', href: '/medicos', icon: Users },
+    { name: 'Farmácias', href: '/farmacias', icon: Store },
+    { name: 'Concorrentes', href: '/concorrentes', icon: Users },
+    { name: 'Setores', href: '/setores', icon: LayoutDashboard },
+    { name: 'Vendedores de Referência', href: '/vendedores-referencia', icon: Users },
+    { name: 'Análises e Estatísticas', href: '/analises-estatisticas', icon: TrendingUp },
+    { name: 'QSD Pharma AI', href: '/qsd-pharma-ai', icon: TrendingUp },
+    { name: 'Backup & Importação', href: '/backup-importacao', icon: FileText }
   ];
 
   const handleLogout = () => {
