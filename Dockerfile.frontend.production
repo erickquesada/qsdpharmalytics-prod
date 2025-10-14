@@ -4,13 +4,13 @@ FROM node:18-alpine as build
 WORKDIR /app
 
 # Copiar package files
-COPY package.json yarn.lock ./
+COPY frontend/package.json frontend/yarn.lock ./
 
 # Instalar dependências
 RUN yarn install --frozen-lockfile
 
-# Copiar código fonte
-COPY . .
+# Copiar código fonte do frontend
+COPY frontend/ ./
 
 # Build argument para backend URL
 ARG REACT_APP_BACKEND_URL
