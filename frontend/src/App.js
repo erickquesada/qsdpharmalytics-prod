@@ -5,6 +5,9 @@ import Layout from './components/Layout';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import Dashboard from './pages/DashboardComplete';
+import Medicamentos from './pages/Medicamentos';
+import NovaVenda from './pages/NovaVenda';
+import HistoricoVendas from './pages/HistoricoVendas';
 import './App.css';
 
 // Protected Route Component
