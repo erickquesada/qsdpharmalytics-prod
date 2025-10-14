@@ -7,6 +7,7 @@ import sys
 
 # Add the backend directory to the Python path
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..'))
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', 'backend'))
 
 from backend.models import *  # Import all models
 from backend.database.base import Base
@@ -16,8 +17,8 @@ from backend.core.config import settings
 # access to the values within the .ini file in use.
 config = context.config
 
-# Set the database URL from environment
-config.set_main_option('sqlalchemy.url', settings.DATABASE_URL)
+# Set the database URL from environment using the get_database_url method
+config.set_main_option('sqlalchemy.url', settings.get_database_url())
 
 # Interpret the config file for Python logging.
 # This line sets up loggers basically.
