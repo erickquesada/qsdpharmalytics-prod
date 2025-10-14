@@ -14,7 +14,9 @@ import {
   LogOut,
   Menu,
   X,
-  ChevronDown
+  ChevronDown,
+  Plus,
+  Target
 } from 'lucide-react';
 import {
   DropdownMenu,
