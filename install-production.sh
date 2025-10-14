@@ -48,25 +48,28 @@ fi
 echo ""
 echo "3. Configurando ambiente..."
 
-# Criar arquivo .env se n\u00e3o existir
+# Criar arquivo .env se não existir
 if [ ! -f .env ]; then
   echo "   Criando arquivo .env..."
-  cp .env.production.example .env
   
-  # Gerar SECRET_KEY
-  SECRET_KEY=$(openssl rand -hex 32)
-  sed -i "s/YOUR_SECRET_KEY_HERE_USE_openssl_rand_hex_32/$SECRET_KEY/" .env
-  
-  echo ""
-  echo "   \u26a0\ufe0f  IMPORTANTE: Edite o arquivo .env e configure:"
-  echo "   - POSTGRES_PASSWORD (senha segura para o banco)"
-  echo ""
-  echo "   SECRET_KEY j\u00e1 foi gerada automaticamente"
-  echo ""
-  read -p "   Pressione ENTER para editar o .env agora..."
-  ${EDITOR:-nano} .env
+  # Executar script de setup
+  if [ -f setup-env.sh ]; then
+    echo ""
+    ./setup-env.sh
+  else
+    # Fallback se setup-env.sh não existir
+    cp .env.production.example .env
+    SECRET_KEY=$(openssl rand -hex 32)
+    sed -i "s/YOUR_SECRET_KEY_HERE_USE_openssl_rand_hex_32/$SECRET_KEY/" .env
+    echo ""
+    echo "   ⚠️  IMPORTANTE: Edite o arquivo .env e configure:"
+    echo "   - POSTGRES_PASSWORD (senha segura para o banco)"
+    echo ""
+    read -p "   Pressione ENTER para editar o .env agora..."
+    ${EDITOR:-nano} .env
+  fi
 else
-  echo "   \u2705 Arquivo .env j\u00e1 existe"
+  echo "   ✅ Arquivo .env já existe"
 fi
 
 echo ""
