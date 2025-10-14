@@ -77,8 +77,8 @@ const DashboardComplete = () => {
     const totalUnidades = vendas.reduce((acc, v) => acc + (v.quantity || 0), 0);
     const medicamentosAtivos = medicamentos.filter(m => m.is_active).length;
     const cotasAtivas = cotas.filter(c => {
-      const periodoC ota = new Date(c.periodo);
-      return periodoC >= inicioMesAtual && periodoCota <= fimMesAtual;
+      const periodoCota = new Date(c.periodo);
+      return periodoCota >= inicioMesAtual && periodoCota <= fimMesAtual;
     }).length;
 
     return {
