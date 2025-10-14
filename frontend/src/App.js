@@ -108,52 +108,105 @@ const AppRoutes = () => {
         }
       />
       <Route
-        path="/pharmacies"
+        path="/medicos"
+        element={
+          <ProtectedRoute>
+            <Layout>
+              <Medicos />
+            </Layout>
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/farmacias"
+        element={
+          <ProtectedRoute>
+            <Layout>
+              <Farmacias />
+            </Layout>
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/setores"
+        element={
+          <ProtectedRoute>
+            <Layout>
+              <Setores />
+            </Layout>
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/definir-cotas"
+        element={
+          <ProtectedRoute>
+            <Layout>
+              <DefinirCotas />
+            </Layout>
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/concorrentes"
         element={
           <ProtectedRoute>
             <Layout>
               <div className="p-8">
-                <h1 className="text-3xl font-bold">Pharmacies</h1>
-                <p className="text-gray-600 mt-2">Pharmacy management coming soon...</p>
+                <h1 className="text-3xl font-bold">Concorrentes</h1>
+                <p className="text-gray-600 mt-2">Em desenvolvimento...</p>
               </div>
             </Layout>
           </ProtectedRoute>
         }
       />
       <Route
-        path="/analytics"
+        path="/vendedores-referencia"
         element={
           <ProtectedRoute>
             <Layout>
               <div className="p-8">
-                <h1 className="text-3xl font-bold">Analytics</h1>
-                <p className="text-gray-600 mt-2">Advanced analytics coming soon...</p>
+                <h1 className="text-3xl font-bold">Vendedores de Referência</h1>
+                <p className="text-gray-600 mt-2">Em desenvolvimento...</p>
               </div>
             </Layout>
           </ProtectedRoute>
         }
       />
       <Route
-        path="/reports"
+        path="/analises-estatisticas"
         element={
           <ProtectedRoute>
             <Layout>
               <div className="p-8">
-                <h1 className="text-3xl font-bold">Reports</h1>
-                <p className="text-gray-600 mt-2">Report generation coming soon...</p>
+                <h1 className="text-3xl font-bold">Análises e Estatísticas</h1>
+                <p className="text-gray-600 mt-2">Em desenvolvimento...</p>
               </div>
             </Layout>
           </ProtectedRoute>
         }
       />
       <Route
-        path="/users"
+        path="/qsd-pharma-ai"
         element={
           <ProtectedRoute>
             <Layout>
               <div className="p-8">
-                <h1 className="text-3xl font-bold">Users</h1>
-                <p className="text-gray-600 mt-2">User management coming soon...</p>
+                <h1 className="text-3xl font-bold">QSD Pharma AI</h1>
+                <p className="text-gray-600 mt-2">Em desenvolvimento...</p>
+              </div>
+            </Layout>
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/backup-importacao"
+        element={
+          <ProtectedRoute>
+            <Layout>
+              <div className="p-8">
+                <h1 className="text-3xl font-bold">Backup & Importação</h1>
+                <p className="text-gray-600 mt-2">Em desenvolvimento...</p>
               </div>
             </Layout>
           </ProtectedRoute>
