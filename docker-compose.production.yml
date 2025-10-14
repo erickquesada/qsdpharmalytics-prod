@@ -29,6 +29,8 @@ services:
       dockerfile: Dockerfile.backend.production
     container_name: qsdpharma_backend
     restart: always
+    env_file:
+      - .env
     environment:
       - DATABASE_URL=postgresql://${POSTGRES_USER:-pharmalitics_user}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB:-pharmalitics}
       - SECRET_KEY=${SECRET_KEY}
