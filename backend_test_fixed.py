@@ -12,7 +12,7 @@ import sys
 import os
 
 # Configuration
-BASE_URL = "https://pharma-analytics-db.preview.emergentagent.com"
+BASE_URL = "https://pharmalytics-1.preview.emergentagent.com"
 API_V1_PREFIX = "/api/v1"
 
 class QSDPharmaliticsAPITester:
