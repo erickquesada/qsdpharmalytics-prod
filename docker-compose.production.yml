@@ -1,0 +1,71 @@
+version: '3.8'
+
+services:
+  # PostgreSQL Database
+  postgres:
+    image: postgres:15-alpine
+    container_name: qsdpharma_postgres
+    restart: always
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-pharmalitics}
+      POSTGRES_USER: ${POSTGRES_USER:-pharmalitics_user}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - pharmalitics-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-pharmalitics_user}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # Backend API
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile.backend
+    container_name: qsdpharma_backend
+    restart: always
+    environment:
+      - DATABASE_URL=postgresql://${POSTGRES_USER:-pharmalitics_user}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB:-pharmalitics}
+      - SECRET_KEY=${SECRET_KEY}
+      - ENVIRONMENT=production
+      - DEBUG=False
+      - BACKEND_CORS_ORIGINS=https://qsdpharma.qsdconnect.cloud
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - pharmalitics-network
+    ports:
+      - "8001:8001"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8001/api/v1/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # Frontend
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: ../Dockerfile.frontend
+      args:
+        - REACT_APP_BACKEND_URL=https://qsdpharma.qsdconnect.cloud
+    container_name: qsdpharma_frontend
+    restart: always
+    depends_on:
+      - backend
+    networks:
+      - pharmalitics-network
+    ports:
+      - "3000:80"
+
+volumes:
+  postgres_data:
+    driver: local
+
+networks:
+  pharmalitics-network:
+    driver: bridge
